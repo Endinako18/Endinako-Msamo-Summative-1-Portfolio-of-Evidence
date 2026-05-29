@@ -1,66 +1,129 @@
 /* ====================================
-   GLOBAL STYLES
+   1. GLOBAL & RESET STYLES (CLEANED)
 ==================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+}
 
 body {
-    background-image: url('../images/BACK.jpeg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    margin: 0;
-    height: 180vh;
-    background-color:mintcream;
-    margin: 0;
-    font-family: Arial, sans-serif;
-
-    font-family: Arial, sans-serif;
-    background-color: white;
-
+    background-color: #f4f7f6;
+    color: #333333;
+    line-height: 1.6;
     display: flex;
     flex-direction: column;
-    min-height: 180vh;
-}
-
-nav {
-    background-color:darkgrey;
-    padding: 15px;
-    text-align: center;
-}
-
-nav a {
-    color: purple;
-    text-decoration: none;
-    margin-right: 20px;
-}
-/* Footer styling */
-footer {
-    background-color: darkgray;
-    color: purple;
-    padding: 30px;
-    text-align: center;
+    min-height: 100vh; /* Keeps footer at bottom naturally */
 }
 
 /* ====================================
-   HOME PAGE STYLES
+   2. FIX: STICKY HEADER & FLOATING NAV
 ==================================== */
-
-/* Color Palette Variables for Home Page */
-:root {
-    --home-primary: #2563eb;       /* Sleek professional blue */
-    --home-primary-hover: #1d4ed8;
-    --home-text: #1f2937;          /* Charcoal */
-    --home-muted: #4b5563;         /* Slate Grey */
-    --home-bg-light: #f8fafc;      /* Soft background alternative */
+header, .main-header {
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    position: -webkit-sticky; /* Safari support */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
 }
 
-/* Layout Container */
+/* The single row containment that balances your layout */
+.header-container {
+    max-width: 100%; 
+    padding: 15px 6%; /* Generous side padding for widescreen layouts */
+    display: flex;
+    justify-content: space-between; /* Securely pins Logo to Left, Nav to Right */
+    align-items: center;
+}
+
+/* Brand Text or Image Logo container */
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1a252f;
+    display: flex;
+    align-items: center;
+}
+
+.logo span {
+    color: #00bcd4; /* Brand Teal Accent */
+}
+
+.logo img {
+    max-height: 50px; 
+    width: auto;
+    display: block;
+}
+
+/* Clean unified navigation layout block */
+nav, .navbar {
+    display: flex;
+    align-items: center;
+    gap: 12px; /* Uniform gap spacing instead of unpredictable margins */
+}
+
+nav a, .navbar a {
+    text-decoration: none;
+    color: #555555;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Interactive States */
+nav a:hover, .navbar a:hover {
+    color: #00bcd4;
+    background-color: rgba(0, 188, 212, 0.06);
+}
+
+nav a.active, .navbar a.active {
+    color: #ffffff;
+    background-color: #00bcd4;
+    box-shadow: 0 4px 10px rgba(0, 188, 212, 0.25);
+}
+
+/* Responsive collapse rule exclusively for mobile screens */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column; /* Stacks logo beautifully on top of links */
+        gap: 12px;
+        padding: 15px 4%;
+    }
+    
+    nav, .navbar {
+        width: 100%;
+        justify-content: center; /* Centers alignment block only on mobile viewports */
+        gap: 6px;
+    }
+
+    nav a, .navbar a {
+        padding: 6px 12px;
+        font-size: 0.85rem;
+    }
+}
+
+/* ====================================
+   3. HOME PAGE STYLES
+==================================== */
+:root {
+    --home-primary: #2563eb;
+    --home-primary-hover: #1d4ed8;
+    --home-text: #1f2937;
+    --home-muted: #4b5563;
+    --home-bg-light: #f8fafc;
+}
+
 .home-container {
     max-width: 1100px;
     margin: 0 auto;
     padding: 60px 10px;
 }
 
-/* Section Headings */
 .section-title {
     font-size: 2rem;
     text-align: center;
@@ -68,6 +131,7 @@ footer {
     color: var(--home-text);
     text-transform: capitalize;
 }
+
 .section-title::after {
     content: '';
     display: block;
@@ -78,54 +142,8 @@ footer {
     border-radius: 2px;
 }
 
-/* Header & Navigation Layout */
-.main-header {
-    background-color: #ffffff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-.header-container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 15px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
-
-.logo img {
-    max-height: 50px; /* Keeps your logo perfectly proportioned in the bar */
-    width: auto;
-    display: block;
-}
-
-.navbar {
-    display: flex;
-    gap: 15px;
-}
-
-.navbar a {
-    text-decoration: none;
-    color: var(--home-muted);
-    font-weight: 600;
-    font-size: 0.95rem;
-    padding: 8px 16px;
-    border-radius: 20px;
-    transition: all 0.3s ease;
-}
-
-.navbar a:hover, .navbar a.active {
-    color: var(--home-primary);
-    background-color: rgba(37, 99, 235, 0.08);
-}
-
-/* Hero Section Upgrade */
 .hero {
-    background: linear-gradient(135deg, #e0f2fe 0%, #f0fdf4 100%); /* Clean modern gradient */
+    background: linear-gradient(135deg, #e0f2fe 0%, #f0fdf4 100%);
     padding: 100px 20px;
     text-align: center;
 }
@@ -154,7 +172,6 @@ footer {
     justify-content: center;
 }
 
-/* Buttons */
 .hero button {
     font-size: 1rem;
     font-weight: 600;
@@ -187,7 +204,6 @@ footer {
     transform: translateY(-2px);
 }
 
-/* Who We Help Cards Grid */
 .audience-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -213,7 +229,6 @@ footer {
     margin-bottom: 12px;
 }
 
-/* Testimonials Layout */
 .testimonials-section {
     background-color: var(--home-bg-light);
 }
@@ -240,43 +255,21 @@ footer {
     color: var(--home-text);
 }
 
-/* Footer Layout */
-.main-footer {
-    background-color: gray;
-    color: #94a3b8;
-    text-align: center;
-    padding: 30px 20px;
-}
-
-/* Mobile Responsive Optimization */
 @media (max-width: 650px) {
-    .header-container {
-        flex-direction: column;
-        gap: 15px;
-    }
-    .hero h1 {
-        font-size: 2.2rem;
-    }
-    .hero-buttons {
-        flex-direction: column;
-    }
-    .hero button {
-        width: 100%;
-    }
+    .hero h1 { font-size: 2.2rem; }
+    .hero-buttons { flex-direction: column; }
+    .hero button { width: 100%; }
 }
 
 /* ====================================
-   ABOUT PAGE STYLES
+   4. ABOUT PAGE STYLES
 ==================================== */
-
-/* Main Layout Wrapper */
 .about-container {
     max-width: 1100px;
     margin: 0 auto;
-    padding: 60px 20px 100px 20px; /* Generous bottom padding replaces <br> tags */
+    padding: 60px 20px 100px 20px;
 }
 
-/* About Intro Text Style */
 .about-story {
     max-width: 800px;
     margin: 0 auto 50px auto;
@@ -290,17 +283,11 @@ footer {
     line-height: 1.8;
 }
 
-/* About Page Banner Upgraded */
 .about-banner {
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); /* Deep sleek charcoal gradient */
-    padding: 90px 20px;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    padding: 60px 20px;
     text-align: center;
     color: #ffffff;
-}
-
-.banner-content max-width {
-    max-width: 700px;
-    margin: 0 auto;
 }
 
 .about-banner h1 {
@@ -312,11 +299,10 @@ footer {
 
 .about-banner p {
     font-size: 1.25rem;
-    color: #94a3b8; /* Soft blue-grey text */
+    color: #94a3b8;
     font-weight: 500;
 }
 
-/* Mission & Vision Columns */
 .values-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
@@ -339,7 +325,6 @@ footer {
     position: relative;
 }
 
-/* Left-aligned accent line under column titles */
 .value-card h2::after {
     content: '';
     display: block;
@@ -357,109 +342,17 @@ footer {
     line-height: 1.7;
 }
 
-.value-card p:last-child {
-    margin-bottom: 0;
-}
+.value-card p:last-child { margin-bottom: 0; }
 
-/* Responsive adjust for smaller tablets / mobile viewports */
 @media (max-width: 768px) {
-    .values-grid {
-        grid-template-columns: 1fr; /* Stacks column cards comfortably on mobile */
-        gap: 30px;
-    }
-    
-    .value-card {
-        padding: 25px;
-    }
-
-    .about-banner h1 {
-        font-size: 2.4rem;
-    }
-}
- /*====================================
-   SERVICES PAGE STYLE
-===================================*/
-
-/* Reset and Base Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    .values-grid { grid-template-columns: 1fr; gap: 30px; }
+    .value-card { padding: 25px; }
+    .about-banner h1 { font-size: 2.4rem; }
 }
 
-body {
-    background-color: #f8f9fa;
-    color: #333;
-    line-height: 1.6;
-}
-
-/* Header & Navigation Layout */
-.main-header {
-    background-color: #ffffff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-.header-container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 15px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
-/* Header & Navigation Styling */
-header {
-    background-color: #ffffff;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-}
-
-header h2 {
-    color: #2c3e50;
-    margin-bottom: 15px;
-    font-size: 2rem;
-}
-
-.logo img {
-    max-height: 50px;
-    width: auto;
-    display: block;
-}
-
-.navbar {
-    display: flex;
-    gap: 15px;
-}
-
-.navbar a {
-    text-decoration: none;
-    color:var(--home-muted) ;
-    font-weight: 600;
-    font-size: 0.95rem;
-    padding: 8px 16px;
-    border-radius: 20px;
-    transition: all 0.3s ease;
-}
-
-nav a {
-    text-decoration: none;
-    color: #555;
-    margin: 0 15px;
-    font-weight: 600;
-    transition: color 0.3s ease;
-}
-
-nav a:hover, nav a.active {
-    color: #3498db; /* Professional blue tint */
-}
-
-/* Services Layout */
+/* ====================================
+   5. SERVICES PAGE STYLE
+==================================== */
 .services-container {
     max-width: 1200px;
     margin: 40px auto;
@@ -469,7 +362,6 @@ nav a:hover, nav a.active {
     gap: 30px;
 }
 
-/* Card Styling */
 .card {
     background: #ffffff;
     border-radius: 12px;
@@ -487,10 +379,9 @@ nav a:hover, nav a.active {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
-/* Icon Styles */
 .card .icon {
     font-size: 2.5rem;
-    color: #3498db;
+    color: purple;
     margin-bottom: 15px;
 }
 
@@ -507,30 +398,40 @@ nav a:hover, nav a.active {
 }
 
 .calender-icon {
-    font-size: 26px;
-    color: #6b7280;
-    background: #f3f4f6;
-    padding: 10px;
-    border-radius: 10px;
+    font-size: 28px;               /* Controls the size of the Font Awesome icon */
+    color: #00bcd4;                /* Your signature brand teal color */
+    background-color: rgba(0, 188, 212, 0.08); /* Transparent matching teal background container */
+    padding: 16px;                 /* Breathes space evenly around the icon shape */
+    border-radius: 12px;           /* Modern rounded corners */
+    display: inline-flex;          /* Centers the Font Awesome glyph inside the padding bounds */
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
 }
 
-/* Mini Image Gallery Inside Cards */
+/* Optional hover interaction effect for your services card */
+.card:hover .calender-icon {
+    color: #ffffff;
+    background-color: #00bcd4;     /* Flips background to solid teal on hover */
+    transform: scale(1.1);         /* Smooth pop effect */
+}
+
 .card-gallery {
     display: flex;
     gap: 8px;
     justify-content: center;
-    margin-top: auto; /* Pushes gallery to the bottom of the card */
+    margin-top: auto;
 }
 
 .card-gallery img {
     width: 60px;
     height: 60px;
-    object-fit: cover; /* Prevents stretching */
+    object-fit: cover;
     border-radius: 6px;
     border: 1px solid #e0e0e0;
 }
 
-/* Booking Button Container */
 .cta-section {
     text-align: center;
     margin: 40px 0;
@@ -554,198 +455,253 @@ nav a:hover, nav a.active {
     transform: scale(1.05);
 }
 
-/* Footer styling */
-footer {
-    text-align: center;
-    padding: 20px;
-    background-color: #2c3e50;
-    color: #ecf0f1;
-    font-size: 0.9rem;
-    margin-top: 40px;
-}
-
- /*====================================
-   CONTACT PAGE STYLE
+/* ====================================
+   6. MAIN ENQUIRY CONTENT
 ==================================== */
-
-.contact-form {
-    width: 50%;
-    margin: auto;
+.enquiry-container {
+    max-width: 700px;
+    width: 90%;
+    margin: 60px auto;
+    flex: 1;
 }
 
-.contact-form input,
-.contact-form textarea {
+.enquiry-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.enquiry-header h1 {
+    font-size: 2.2rem;
+    color: #1a252f;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.enquiry-header p {
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.enquiry-form-card {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06);
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.form-group {
+    margin-bottom: 22px;
+    flex: 1;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 8px;
+}
+
+.form-group input {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
+    padding: 12px 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    outline: none;
+    background: #fdfdfd;
+    color: #333333;
+    transition: all 0.3s ease;
 }
+
+.form-group input:focus {
+    border-color: #00bcd4;
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(0, 188, 212, 0.1);
+}
+
+@media (max-width: 600px) {
+    .form-row { flex-direction: column; gap: 0; }
+    .enquiry-form-card { padding: 25px 20px; }
+}
+
+/* ====================================
+   7. CONTACT PAGE STYLE
+==================================== */
 .contact-container {
-max-width: 1200px; /* Widened slightly to elegantly support all 3 columns */
-width: 100%;
-background: #ffffff;
-border-radius: 12px;
-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-overflow: hidden;
-margin: 40px auto;
+    max-width: 1200px;
+    width: 90%;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    margin: 60px auto;
 }
 
 .contact-wrapper {
-display: flex;
-width: 100%;
-align-items: stretch; /* Forces columns to be exactly equal heights */
+    display: flex;
+    width: 100%;
+    align-items: stretch;
 }
 
-/* COLUMN 1: SIDE DETAILS PANEL */
 .side-details {
-flex: 0.9; /* Slightly tighter proportional scale */
-background: grey;
-color: #ffffff;
-padding: 35px;
-display: flex;
-flex-direction: column;
+    flex: 1;
+    background: linear-gradient(135deg, #1a252f 0%, #00bcd4 100%);
+    color: #ffffff;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
 }
 
 .side-details h2 {
-font-size: 1.8rem;
-font-weight: 700;
-margin-bottom: 12px;
-color: #ffffff;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 15px;
 }
 
 .side-desc {
-font-size: 0.85rem;
-line-height: 1.5;
-opacity: 0.9;
-margin-bottom: 30px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    opacity: 0.85;
+    margin-bottom: 35px;
 }
 
 .info-links {
-display: flex;
-flex-direction: column;
-gap: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
 }
 
 .info-item {
-display: flex;
-align-items: flex-start;
-gap: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 .info-icon {
-background: rgba(255, 255, 255, 0.2);
-width: 44px;
-height: 44px;
-border-radius: 50%;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 1.1rem;
-flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.15);
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.info-item:hover .info-icon {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
 }
 
 .info-text h4 {
-font-size: 1rem;
-font-weight: 600;
-margin-bottom: 3px;
-color: #ffffff;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 2px;
 }
 
 .info-text p {
-font-size: 0.85rem;
-opacity: 0.85;
-line-height: 1.4;
+    font-size: 0.85rem;
+    opacity: 0.9;
 }
 
-/* COLUMN 2: FORM BOX CONTAINER */
 .form-container {
-flex: 1.2;
-padding: 35px;
-background: #ffffff;
-position: relative;
+    flex: 1.2;
+    padding: 40px;
+    background: #ffffff;
 }
 
 .form-container h2 {
-font-size: 1.8rem;
-color: #333333;
-margin-bottom: 25px;
-font-weight: 600;
+    font-size: 2rem;
+    color: #1a252f;
+    margin-bottom: 25px;
+    font-weight: 700;
 }
 
-.input-group {
-margin-bottom: 15px;
-}
+.input-group { margin-bottom: 20px; }
 
 .input-group label {
-display: block;
-font-size: 0.85rem;
-font-weight: 500;
-color: #666666;
-margin-bottom: 6px;
-text-align: left;
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #555555;
+    margin-bottom: 8px;
 }
 
-.input-group input,
-.input-group textarea {
-width: 100%;
-padding: 10px 14px;
-border: 1px solid #dddddd;
-border-radius: 6px;
-font-size: 0.9rem;
-outline: none;
-transition: border-color 0.3s ease;
-background: #fafafa;
-color: #333333;
+.input-group input, .input-group textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    outline: none;
+    background: #fdfdfd;
+    color: #333333;
+    transition: all 0.3s ease;
 }
 
-.input-group input:focus,
-.input-group textarea:focus {
-border-color: #00bcd4;
-background: #ffffff;
+.input-group input:focus, .input-group textarea:focus {
+    border-color: #00bcd4;
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(0, 188, 212, 0.1);
 }
 
-.input-group textarea {
-resize: none;
-}
+.input-group textarea { resize: none; }
 
 .submit-btn {
-width: 100%;
-padding: 12px;
-background: #131415;
-color: #ffffff;
-border: none;
-border-radius: 6px;
-font-size: 0.95rem;
-font-weight: 600;
-cursor: pointer;
-transition: background 0.3s ease, transform 0.1s ease;
-margin-top: 5px;
+    width: 100%;
+    padding: 14px;
+    background: #1a252f;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    margin-top: 10px;
 }
 
-.submit-btn:hover {
-background: #0097a7;
-}
-
-/* RESPONSIVE MEDIA BREAKPOINTS */
-@media (max-width: 991px) {
-.contact-wrapper {
-flex-direction: column;
-}
-
-.side-details, .form-container, .map-container-panel {
-width: 100%;
-flex: none;
-}
-
-.side-details, .form-container {
-padding: 30px 20px;
-}
+.submit-btn:hover { background: #00bcd4; }
+.submit-btn:active { transform: scale(0.98); }
 
 .map-container-panel {
-height: 300px; /* Restores a comfortable, proportional layout profile on mobile screens */
+    flex: 1;
+    min-width: 300px;
 }
 
 .map-container-panel iframe {
-position: relative;
-height: 300px;
+    width: 100%;
+    height: 100%;
+    border: none;
 }
+
+@media (max-width: 1024px) {
+    .contact-wrapper { flex-direction: column; }
+    .side-details, .form-container, .map-container-panel { width: 100%; flex: none; }
+    .map-container-panel { height: 350px; }
+}
+
+@media (max-width: 600px) {
+    .side-details, .form-container { padding: 30px 20px; }
+}
+
+/* ====================================
+   8. PREMIUM SLATE DARK FOOTER (UNIFIED)
+==================================== */
+footer, .main-footer {
+    background-color: #1a252f;
+    color: #ffffff;
+    text-align: center;
+    padding: 24px;
+    font-size: 0.9rem;
+    margin-top: auto; /* Pushes footer neatly down on shorter pages */
+    width: 100%;
 }
