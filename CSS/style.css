@@ -261,6 +261,7 @@ nav a.active, .navbar a.active {
     .hero button { width: 100%; }
 }
 
+
 /* ====================================
    4. ABOUT PAGE STYLES
 ==================================== */
@@ -453,6 +454,17 @@ nav a.active, .navbar a.active {
 .btn-book:hover {
     background-color: #2980b9;
     transform: scale(1.05);
+}
+
+* Make the image gallery look interactive */
+.card-gallery img {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Zoom in slightly and lift when hovered */
+.card-gallery img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 /* ====================================
@@ -693,6 +705,193 @@ nav a.active, .navbar a.active {
     .side-details, .form-container { padding: 30px 20px; }
 }
 
+/* Toast Notification Base */
+.toast {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 16px 24px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: translateX(calc(100% + 40px));
+    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    z-index: 9999;
+    min-width: 300px;
+}
+
+/* Slide-in State */
+.toast.active {
+    transform: translateX(0);
+}
+
+.toast-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.toast-content i {
+    font-size: 1.3rem;
+}
+
+.toast-msg {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #333333;
+}
+
+/* Toast Theme Color States */
+.toast.success-toast {
+    border-left: 5px solid #2ed573;
+}
+.toast.success-toast i {
+    color: #2ed573;
+}
+
+.toast.error-toast {
+    border-left: 5px solid #ff3838;
+}
+.toast.error-toast i {
+    color: #ff3838;
+}
+
+/* Animated Countdown Progress Bar */
+.toast-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    background: #e0e0e0;
+}
+
+.toast-progress::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.toast.success-toast .toast-progress::before { background: #2ed573; }
+.toast.error-toast .toast-progress::before { background: #ff3838; }
+
+.toast.active .toast-progress::before {
+    animation: toastProgressAnimation 4s linear forwards;
+}
+
+@keyframes toastProgressAnimation {
+    100% {
+        width: 0%;
+    }
+}
+
+/* Inline Custom field feedback messages */
+.error-msg {
+    color: #ff3838;
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-top: 5px;
+    display: block;
+    min-height: 16px;
+    transition: all 0.3s ease;
+}
+
+/* Red-border field failure highlight */
+.input-group input.invalid-field,
+.input-group textarea.invalid-field {
+    border-color: #ff3838;
+    background-color: #fff8f8;
+}
+
+/* Float Toast Panel setup */
+.toast {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 16px 24px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: translateX(calc(100% + 40px));
+    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    z-index: 9999;
+    min-width: 320px;
+}
+
+.toast.active {
+    transform: translateX(0);
+}
+.toast-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.toast-content i {
+    font-size: 1.3rem;
+}
+.toast-msg {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #333333;
+}
+
+/* Themes */
+.toast.success-toast {
+    border-left: 5px solid #2ed573;
+}
+.toast.success-toast i {
+    color: #2ed573;
+}
+.toast.error-toast {
+    border-left: 5px solid #ff3838;
+}
+.toast.error-toast i {
+    color: #ff3838;
+}
+
+/* Progress bar alignment */
+.toast-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    background: #e0e0e0;
+}
+.toast-progress::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+}
+.toast.success-toast .toast-progress::before {
+    background: #2ed573;
+}
+.toast.error-toast .toast-progress::before {
+    background: #ff3838;
+}
+.toast.active .toast-progress::before {
+    animation: toastProgress 4s linear forwards;
+}
+
+@keyframes toastProgress {
+    100% {
+        width: 0%;
+    }
+}
+
+
 /* ====================================
    8. PREMIUM SLATE DARK FOOTER (UNIFIED)
 ==================================== */
@@ -705,3 +904,4 @@ footer, .main-footer {
     margin-top: auto; /* Pushes footer neatly down on shorter pages */
     width: 100%;
 }
+
