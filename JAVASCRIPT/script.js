@@ -261,28 +261,31 @@ if (contactForm) {
 /*==================================
       ENQUIRY FORM
   =================================*/
+  
   document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('enquiryForm');
 
-    form.addEventListener('submit', (event) => {
-        // Prevent default form submission behavior
-        event.preventDefault();
+    if (!form) {
+        console.error("Error: Could not find an element with id='enquiryForm'. Check your HTML!");
+        return;
+    }
 
-        // Clear any previous error messages before validating again
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
         clearErrors();
 
         let isValid = true;
 
         // 1. Validate First Name
         const fname = document.getElementById('fname');
-        if (fname.value.trim() === '') {
+        if (!fname || fname.value.trim() === '') {
             showError(fname, 'First name is required.');
             isValid = false;
         }
 
         // 2. Validate Last Name
         const lname = document.getElementById('lname');
-        if (lname.value.trim() === '') {
+        if (!lname || lname.value.trim() === '') {
             showError(lname, 'Last name is required.');
             isValid = false;
         }
@@ -290,7 +293,7 @@ if (contactForm) {
         // 3. Validate Email
         const email = document.getElementById('email');
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (email.value.trim() === '') {
+        if (!email || email.value.trim() === '') {
             showError(email, 'Email address is required.');
             isValid = false;
         } else if (!emailRegex.test(email.value.trim())) {
@@ -300,40 +303,46 @@ if (contactForm) {
 
         // 4. Validate Service Required
         const service = document.getElementById('service');
-        if (service.value.trim() === '') {
+        if (!service || service.value.trim() === '') {
             showError(service, 'Please specify the service required.');
             isValid = false;
         }
 
-        // If everything is valid, proceed with submission (e.g., send data to API)
         if (isValid) {
-            alert('Form submitted successfully!'); // You can replace this with your actual submission logic
-            form.reset(); 
+            // Using a temporary inline message instead of a browser alert to keep it strictly on-page
+            const successMsg = document.createElement('div');
+            successMsg.innerText = 'Enquiry submitted successfully!';
+            successMsg.style.color = '#2e7d32';
+            successMsg.style.padding = '10px';
+            successMsg.style.marginTop = '15px';
+            successMsg.style.background = '#e8f5e9';
+            successMsg.style.borderRadius = '8px';
+            successMsg.style.textAlign = 'center';
+            form.appendChild(successMsg);
+            
+            form.reset();
+            setTimeout(() => successMsg.remove(), 5000);
         }
     });
 
-    // Helper function to create and display error messages inline
     function showError(inputElement, message) {
-        // Highlight the border of the input field
+        if (!inputElement) return;
+        
         inputElement.style.borderColor = '#ff3333';
         inputElement.style.background = '#fff8f8';
 
-        // Create the error message element
         const errorDisplay = document.createElement('div');
         errorDisplay.className = 'error-message';
         errorDisplay.innerText = message;
         
-        // Add custom styles directly or via CSS classes
         errorDisplay.style.color = '#ff3333';
         errorDisplay.style.fontSize = '0.8rem';
         errorDisplay.style.marginTop = '5px';
         errorDisplay.style.fontWeight = '500';
 
-        // Append the error message right below the input field
         inputElement.parentElement.appendChild(errorDisplay);
     }
 
-    // Helper function to remove all active errors and reset borders
     function clearErrors() {
         const errorMessages = document.querySelectorAll('.error-message');
         errorMessages.forEach(msg => msg.remove());
