@@ -261,96 +261,87 @@ if (contactForm) {
 /*==================================
       ENQUIRY FORM
   =================================*/
-  document
-    .getElementById("enquiryForm")
-    .addEventListener("submit", function (event) {
-        // Prevent default form page refresh submission
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('enquiryForm');
+
+    form.addEventListener('submit', (event) => {
+        // Prevent default form submission behavior
         event.preventDefault();
 
-        // DOM Field Targets
-        const fname = document.getElementById("fname");
-        const lname = document.getElementById("lname");
-        const email = document.getElementById("email");
-        const service = document.getElementById("service");
+        // Clear any previous error messages before validating again
+        clearErrors();
 
-        // Truth variable tracker state flag
-        let isFormValid = true;
+        let isValid = true;
 
-        // --- 1. First Name Validation ---
-        if (fname.value.trim() === "") {
-            setInvalid(fname, "First name is required.");
-            isFormValid = false;
-        } else if (fname.value.trim().length < 2) {
-            setInvalid(fname, "First name must be at least 2 characters.");
-            isFormValid = false;
-        } else {
-            setValid(fname);
+        // 1. Validate First Name
+        const fname = document.getElementById('fname');
+        if (fname.value.trim() === '') {
+            showError(fname, 'First name is required.');
+            isValid = false;
         }
 
-        // --- 2. Last Name Validation ---
-        if (lname.value.trim() === "") {
-            setInvalid(lname, "Last name is required.");
-            isFormValid = false;
-        } else if (lname.value.trim().length < 2) {
-            setInvalid(lname, "Last name must be at least 2 characters.");
-            isFormValid = false;
-        } else {
-            setValid(lname);
+        // 2. Validate Last Name
+        const lname = document.getElementById('lname');
+        if (lname.value.trim() === '') {
+            showError(lname, 'Last name is required.');
+            isValid = false;
         }
 
-        // --- 3. Email Address Validation ---
+        // 3. Validate Email
+        const email = document.getElementById('email');
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (email.value.trim() === "") {
-            setInvalid(email, "Email address is required.");
-            isFormValid = false;
+        if (email.value.trim() === '') {
+            showError(email, 'Email address is required.');
+            isValid = false;
         } else if (!emailRegex.test(email.value.trim())) {
-            setInvalid(email, "Please provide a valid email format.");
-            isFormValid = false;
-        } else {
-            setValid(email);
+            showError(email, 'Please enter a valid email address.');
+            isValid = false;
         }
 
-        // --- 4. Service Required Validation ---
-        if (service.value.trim() === "") {
-            setInvalid(service, "Please specify the service context.");
-            isFormValid = false;
-        } else if (service.value.trim().length < 5) {
-            setInvalid(
-                service,
-                "Please specify with slightly more detail (min 5 chars)."
-            );
-            isFormValid = false;
-        } else {
-            setValid(service);
+        // 4. Validate Service Required
+        const service = document.getElementById('service');
+        if (service.value.trim() === '') {
+            showError(service, 'Please specify the service required.');
+            isValid = false;
         }
 
-        // --- Final Verification Logic Execution Gate ---
-        if (isFormValid) {
-            console.log(
-                "Validation passed cleanly! Processing transaction request payload securely..."
-            );
-
-            // Uncomment line directly underneath to make standard non-ajax submission go through to a backend:
-            // this.submit();
+        // If everything is valid, proceed with submission (e.g., send data to API)
+        if (isValid) {
+            alert('Form submitted successfully!'); // You can replace this with your actual submission logic
+            form.reset(); 
         }
     });
 
-// Helper Function: Bind CSS rules and apply message explicitly inside container block
-function setInvalid(inputElement, message) {
-    const parentContainer = inputElement.parentElement;
-    const errorDisplaySpan = parentContainer.querySelector(".error-msg");
+    // Helper function to create and display error messages inline
+    function showError(inputElement, message) {
+        // Highlight the border of the input field
+        inputElement.style.borderColor = '#ff3333';
+        inputElement.style.background = '#fff8f8';
 
-    inputElement.classList.add("invalid-input");
-    errorDisplaySpan.textContent = message;
-}
+        // Create the error message element
+        const errorDisplay = document.createElement('div');
+        errorDisplay.className = 'error-message';
+        errorDisplay.innerText = message;
+        
+        // Add custom styles directly or via CSS classes
+        errorDisplay.style.color = '#ff3333';
+        errorDisplay.style.fontSize = '0.8rem';
+        errorDisplay.style.marginTop = '5px';
+        errorDisplay.style.fontWeight = '500';
 
-// Helper Function: Clear active input tracking parameters if input changes pass checks
-function setValid(inputElement) {
-    const parentContainer = inputElement.parentElement;
-    const errorDisplaySpan = parentContainer.querySelector(".error-msg");
+        // Append the error message right below the input field
+        inputElement.parentElement.appendChild(errorDisplay);
+    }
 
-    inputElement.classList.remove("invalid-input");
-    errorDisplaySpan.textContent = "";
-}
+    // Helper function to remove all active errors and reset borders
+    function clearErrors() {
+        const errorMessages = document.querySelectorAll('.error-message');
+        errorMessages.forEach(msg => msg.remove());
 
-
+        const inputs = form.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.style.borderColor = '#e0e0e0';
+            input.style.background = '#fdfdfd';
+        });
+    }
+});
