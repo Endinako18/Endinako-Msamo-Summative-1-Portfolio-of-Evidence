@@ -119,7 +119,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-
+/*=============================
+      CONTACT FORM
+   ===========================*/
 
 
 (function () {
@@ -255,4 +257,100 @@ if (contactForm) {
             });
     });
 }
+
+/*==================================
+      ENQUIRY FORM
+  =================================*/
+  document
+    .getElementById("enquiryForm")
+    .addEventListener("submit", function (event) {
+        // Prevent default form page refresh submission
+        event.preventDefault();
+
+        // DOM Field Targets
+        const fname = document.getElementById("fname");
+        const lname = document.getElementById("lname");
+        const email = document.getElementById("email");
+        const service = document.getElementById("service");
+
+        // Truth variable tracker state flag
+        let isFormValid = true;
+
+        // --- 1. First Name Validation ---
+        if (fname.value.trim() === "") {
+            setInvalid(fname, "First name is required.");
+            isFormValid = false;
+        } else if (fname.value.trim().length < 2) {
+            setInvalid(fname, "First name must be at least 2 characters.");
+            isFormValid = false;
+        } else {
+            setValid(fname);
+        }
+
+        // --- 2. Last Name Validation ---
+        if (lname.value.trim() === "") {
+            setInvalid(lname, "Last name is required.");
+            isFormValid = false;
+        } else if (lname.value.trim().length < 2) {
+            setInvalid(lname, "Last name must be at least 2 characters.");
+            isFormValid = false;
+        } else {
+            setValid(lname);
+        }
+
+        // --- 3. Email Address Validation ---
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (email.value.trim() === "") {
+            setInvalid(email, "Email address is required.");
+            isFormValid = false;
+        } else if (!emailRegex.test(email.value.trim())) {
+            setInvalid(email, "Please provide a valid email format.");
+            isFormValid = false;
+        } else {
+            setValid(email);
+        }
+
+        // --- 4. Service Required Validation ---
+        if (service.value.trim() === "") {
+            setInvalid(service, "Please specify the service context.");
+            isFormValid = false;
+        } else if (service.value.trim().length < 5) {
+            setInvalid(
+                service,
+                "Please specify with slightly more detail (min 5 chars)."
+            );
+            isFormValid = false;
+        } else {
+            setValid(service);
+        }
+
+        // --- Final Verification Logic Execution Gate ---
+        if (isFormValid) {
+            console.log(
+                "Validation passed cleanly! Processing transaction request payload securely..."
+            );
+
+            // Uncomment line directly underneath to make standard non-ajax submission go through to a backend:
+            // this.submit();
+        }
+    });
+
+// Helper Function: Bind CSS rules and apply message explicitly inside container block
+function setInvalid(inputElement, message) {
+    const parentContainer = inputElement.parentElement;
+    const errorDisplaySpan = parentContainer.querySelector(".error-msg");
+
+    inputElement.classList.add("invalid-input");
+    errorDisplaySpan.textContent = message;
+}
+
+// Helper Function: Clear active input tracking parameters if input changes pass checks
+function setValid(inputElement) {
+    const parentContainer = inputElement.parentElement;
+    const errorDisplaySpan = parentContainer.querySelector(".error-msg");
+
+    inputElement.classList.remove("invalid-input");
+    errorDisplaySpan.textContent = "";
+}
+
 
